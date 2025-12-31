@@ -33,5 +33,17 @@ export default defineRouter(function (/* { store, ssrContext } */) {
     history: createHistory(process.env.VUE_ROUTER_BASE),
   })
 
+  Router.beforeEach(async (to, from, next) => {
+    const {
+      data: { session },
+    } = await import('boot/supabase').then((m) => m.supabase.auth.getSession())
+
+    if (to.matched.some((record) => record.meta.requiresAuth) && !session) {
+      next({ path: '/login' })
+    } else {
+      next()
+    }
+  })
+
   return Router
 })
