@@ -1,0 +1,10 @@
+# Vercel ignore file - files to exclude from deployment
+node_modules
+.quasar
+.git
+.DS_Store
+*.log
+.env
+.env.local
+coverage
+.nyc_output
